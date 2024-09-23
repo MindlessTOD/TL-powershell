@@ -19,6 +19,8 @@ $Value1Options = @('portalapi', 'api')
 $Value2Options = @('b', 'c', 'd', 'e', 'f', 'g', 'h', 'au1', 'ae1', 'ca1', 'eu1', 'sa1')
 $Value3Options = @('webapi', 'legacyportal')
 $Value4Options = @('b', 'c', 'd', 'e', 'f', 'g', 'ae1', 'ca1', 'eu1', 'sa1')
+$Value5Options = @('portalapi', 'betaportalapi')
+
 # Initialize an array to store the results
 $results = @()
 
@@ -48,7 +50,7 @@ function Show-LoadingBar {
     Write-Host -NoNewline "`r[$bar$spaces] $percent% Complete"
 }
 
-$totalTests = ($Value1Options.Count * $Value2Options.Count) + ($Value3Options.Count * $Value4Options.Count)
+$totalTests = ($Value1Options.Count * $Value2Options.Count) + ($Value3Options.Count * $Value4Options.Count) + ($Value5Options.Count * $Value2Options.Count)
 $currentTest = 0
 
 # Run against: ('portalapi', 'api'), Instances: ('b', 'c', 'd', 'e', 'f', 'g', 'h', 'au1', 'ae1', 'ca1', 'eu1', 'sa1')
@@ -68,6 +70,20 @@ foreach ($Value1 in $Value1Options) {
 foreach ($Value3 in $Value3Options) {
     foreach ($Value4 in $Value4Options) {
         $url = "https://$Value3.$Value4.threatlocker.com/api/echo"
+        $statusCode = Test-UrlStatusCode -Url $url
+        $results += [pscustomobject]@{
+            URL        = $url
+            StatusCode = $statusCode
+        }
+        $currentTest++
+        Show-LoadingBar -total $totalTests -current $currentTest
+    }
+}
+
+# Run against ('webapi', 'legacyportal'), Instances: ('b', 'c', 'd', 'e', 'f', 'g', 'ae1', 'ca1', 'eu1', 'sa1')
+foreach ($Value5 in $Value5Options) {
+    foreach ($Value2 in $Value2Options) {
+        $url = "https://$Value5.$Value2.threatlocker.com/swagger/index.html"
         $statusCode = Test-UrlStatusCode -Url $url
         $results += [pscustomobject]@{
             URL        = $url
