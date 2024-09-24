@@ -80,7 +80,7 @@ foreach ($Value3 in $Value3Options) {
     }
 }
 
-# Run against ('webapi', 'legacyportal'), Instances: ('b', 'c', 'd', 'e', 'f', 'g', 'ae1', 'ca1', 'eu1', 'sa1')
+# Run against ('portalapi', 'betaportalapi'), Instances: ('b', 'c', 'd', 'e', 'f', 'g', 'ae1', 'ca1', 'eu1', 'sa1')
 foreach ($Value5 in $Value5Options) {
     foreach ($Value2 in $Value2Options) {
         $url = "https://$Value5.$Value2.threatlocker.com/swagger/index.html"
