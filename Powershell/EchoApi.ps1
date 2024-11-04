@@ -17,10 +17,9 @@ Write-Host "
 # Define the possible values for Value1, Value2, and Value3
 $Value1Options = @('portalapi', 'api')
 $Value2Options = @('b', 'c', 'd', 'e', 'f', 'g', 'h', 'au1', 'ae1', 'ca1', 'eu1', 'sa1')
-$Value3Options = @('webapi', 'legacyportal')
+$Value3Options = @('webapi', 'legacyportal', 'beta')
 $Value4Options = @('b', 'c', 'd', 'e', 'f', 'g', 'ae1', 'ca1', 'eu1', 'sa1')
 $Value5Options = @('portalapi', 'betaportalapi')
-
 # Initialize an array to store the results
 $results = @()
 
@@ -30,7 +29,7 @@ function Test-UrlStatusCode {
         [string]$Url
     )
     try {
-        $response = Invoke-RestMethod -Uri $Url -Method Get -ErrorAction Stop
+        #$response = Invoke-RestMethod -Uri $Url -Method Get -ErrorAction Stop
         $statusCode = 200
     } catch {
         $statusCode = $_.Exception.Response.StatusCode.value__
